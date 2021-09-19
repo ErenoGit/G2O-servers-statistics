@@ -1,0 +1,5 @@
+<Files ~ (visited_ip.txt)>
+Order Deny,Allow
+Allow from 127.0.0.1
+Deny from all
+</Files>

@@ -1,22 +1,29 @@
+function loadFile(filePath) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+	result = xmlhttp.responseText;
+  }
+  return result;
+}
+	
+const splitLines = str => str.split(/\r?\n/);
+	
+function getAllServersRecord()
+{
+	var allServersRecord = loadFile("database/allServersRecord.txt?random="+Math.floor(Math.random() * 100));
+	var splittedallServersRecord = splitLines(allServersRecord);
+	
+	return splittedallServersRecord;
+}
+
 window.onload = function() {
-	
-	function loadFile(filePath) {
-	  var result = null;
-	  var xmlhttp = new XMLHttpRequest();
-	  xmlhttp.open("GET", filePath, false);
-	  xmlhttp.send();
-	  if (xmlhttp.status==200) {
-		result = xmlhttp.responseText;
-	  }
-	  return result;
-	}
-	
-	const splitLines = str => str.split(/\r?\n/);
 	
 	String.prototype.replaceAt = function(index, replacement) {
 		return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 	}
-
 
 	///////////////////////////  SPECIAL static allServers chart
 	var dataPoints0 = [];
@@ -36,7 +43,7 @@ window.onload = function() {
 		theme: "dark2",
 		zoomEnabled: true,
 		title: {
-			text: "Łącznie na platformie G2O (wszystkie serwery, liczone od 18.09.2021)"
+			text: "Łącznie na platformie G2O"
 		},
 		axisY: {
 			title: "Liczba graczy",

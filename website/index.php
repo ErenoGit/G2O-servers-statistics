@@ -10,6 +10,7 @@
 		<center>
 			<div id="middle">
 				<h1>Statystyki serwerów G2O - liczba graczy w ostatnich 30 dniach</h1>
+				<h5><script type = "text/javascript">var record = getAllServersRecord(); document.write("Rekord platformy G2O liczony od 18.09.2021: "+record[0]+" graczy, "+record[1]);</script><h5>
 				<div id="charts"></div>
 				<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 				<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>

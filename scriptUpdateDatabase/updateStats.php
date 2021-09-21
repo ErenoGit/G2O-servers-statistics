@@ -48,6 +48,11 @@
 		if (!file_exists($GLOBALS['pathToWebsiteDirectory'].'/database/'.$address.'.db')) {
 			$createOrOpenDB = new SQLite3($GLOBALS['pathToWebsiteDirectory'].'/database/'.$address.'.db');
 			$createOrOpenDB->exec("CREATE TABLE numberOfPlayers(date TEXT, number INT)");
+			if($address == 'allServers')
+			{
+				$createOrOpenDB->exec("CREATE TABLE record(date TEXT, number INT)");
+				$createOrOpenDB->exec("INSERT INTO record(date, number) VALUES('".date('Y-m-d H:i:s')."', 0)");
+			}
 			return $createOrOpenDB;
 		}
 		else
@@ -60,6 +65,24 @@
 	function InsertNumberOfPlayersToDatabase($db, $number)
 	{
 		$db->exec("INSERT INTO numberOfPlayers(date, number) VALUES('".date('Y-m-d H:i:s')."', ".$number.")");
+	}
+	
+	function UpdateAllServersRecord($db, $number)
+	{
+		$db->exec("UPDATE record SET date = '".date('Y-m-d H:i:s')."', number = ".$number." WHERE number < ".$number);
+	}
+	
+	function GetAllServersRecord($db)
+	{
+		$result = $db->query('SELECT number FROM record');
+		$record = 0;
+		
+		while($res = $result->fetchArray(SQLITE3_ASSOC)){
+             if(!isset($res['number'])) continue;
+              $record = $res['number'];
+          }
+		
+		return $record;
 	}
 	
 	function ClearDatabaseOldLogs($db)
@@ -153,6 +176,13 @@
 		$jsonData = substr_replace($jsonData, ']}', -1);
 		
 		file_put_contents($GLOBALS['pathToWebsiteDirectory'].'/database/json/allServers.json', $jsonData);
+		
+		$allServersRecord = GetAllServersRecord($dbAll);
+		UpdateAllServersRecord($dbAll, $allPlayers);
+		if((int)$allServersRecord < $allPlayers)
+		{
+			file_put_contents($GLOBALS['pathToWebsiteDirectory'].'/database/allServersRecord.txt', $allPlayers.PHP_EOL.date('Y-m-d H:i:s'));
+		}
 		///////////////////////////
 		
 		

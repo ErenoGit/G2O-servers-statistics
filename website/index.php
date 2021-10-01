@@ -19,7 +19,7 @@
 		</center>
 		
 		<div id="bottom">
-			by <a href="/admin/login.php">Ereno</a><br/>
+			by <a href="/admin/logowanie.php">Ereno</a><br/>
 			Discord:<br />
 			Ereno#9339
 		</div>

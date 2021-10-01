@@ -134,7 +134,7 @@
 			InsertNumberOfPlayersToDatabase($db, $serverInfo["players"]);
 			$allPlayers = $allPlayers + (int)$serverInfo["players"];
 			
-			if($serverAddressInfo["ip"] == "188.165.16.160")
+			if($serverAddressInfo["ip"] == "146.59.23.8")
 			{
 				$allAxylPlayers = $allAxylPlayers + (int)$serverInfo["players"];
 			}
